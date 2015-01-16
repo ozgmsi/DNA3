@@ -34,7 +34,7 @@ public class APL {
 			}
 			
 			/* Voeg het woord in de trie en geef met het Data object de posities array */
-			boom.insert(woord, new Data(posities));
+			boom.insert2(woord, new Data(posities));
 			
 			/* Verhoog posities */
 			positie++;
@@ -61,6 +61,8 @@ public class APL {
 		System.out.println("Bestaat aap? :" + boom.bestaatWoord("aap"));
 		System.out.println("Bestaat piloot?:" + boom.bestaatWoord("piloot"));
 		
+		
+		System.out.println(boom.toString());
 		
 		System.out.println(boom.search("aap"));
 
