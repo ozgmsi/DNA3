@@ -32,12 +32,15 @@ public class Node {
 	/* Hoevaak komt dit, als dit een woord is voor?*/
 	private int frequency;
 	
+	private Node parent;
+	
 	
 	/* Constructor */
 	public Node() {
 		data = new ArrayList<Data>();
 		children = new ArrayList<Node>();
 		frequency = 0;
+		nodeID = lastAssignedNumber++;
 	}
 
 	/* Contructor with args */
@@ -45,9 +48,9 @@ public class Node {
 		this.value = value;
 		this.isWord = isword;
 		this.data = new ArrayList<Data>();
-		this.data.add(new Data(positie));
 		this.children = new ArrayList<Node>();
 		this.nodeID = lastAssignedNumber++;
+		this.frequency = 0;
 	}
 
 	/**
@@ -63,10 +66,7 @@ public class Node {
 	 * @return true als deze nog childnodes onder zich heeft
 	 */
 	private boolean hasChildren() {
-		if (children != null) {
-			return children.size() > 0;
-		}
-		return false;
+		return children.size() > 0;
 	}
 
 
@@ -249,6 +249,101 @@ public class Node {
 		}
 		return false;
 	}
+	
+	public void insert2(String input, Data data){
+		
+		boolean added = false;
+		
+		/* Doorloop de kinderen van deze node */
+		for (Node childNode : children){
+			
+			/* Bestaat het woord al op een childnode */
+			if (childNode.value.equals(data)){
+				/* Dat gaan we niet verder zoeken */
+				
+				/* En voegen we een data object toe */
+				childNode.addData(data);
+				
+				/* Verhoog het aantal frequenties dat dit woord bestaat */
+				childNode.frequency++;
+				
+				/* Done insert word */
+				System.out.println("Bestaat");
+				//TODO
+				added = true;
+			}
+			
+			/* Als het de letternode bestaat */
+			else if (childNode.hasChildLetter(input)){
+				
+				/* Heeft de childnode kinderen? , is het een blad? */
+				if (childNode.isLeafNew()){
+					
+					/* Het is een blad, maar bevat de waarde van deze blad meer dan 1 letter */
+					if (childNode.isExpandable()){
+						/* Expand deze dan */
+						childNode.expand();
+					}
+					
+					
+					if (input.length() == 1){
+						childNode.data.add(data);
+					}else{
+						childNode.insert2(input.substring(1), data);
+					}
+				}else{
+					childNode.insert2(input.substring(1), data);
+					added = true;
+				}
+			}
+		}
+		
+		
+		if (!added){
+			Node node = new Node();
+			
+			node.value = input;
+			node.data.add(data);
+			node.parent = this;
+			
+			this.children.add(node);
+		}
+		
+	}
+	
+	private boolean isExpandable(){
+		return value.length() > 1;
+	}
+	
+	private void expand(){
+		Node node = new Node();
+		
+		node.value = value.substring(1, value.length());
+		node.data = data;
+		node.parent = this;
+		
+		this.children.add(node);
+		this.value = value.substring(0, 1);
+		this.data = null;
+	}
+	
+	private boolean isLeafNew(){
+		return children.size() == 0;
+	}
+	
+	private void addData(Data data){
+		this.data.add(data);
+	}
+	
+	private boolean hasChildLetter(String character){
+		return value.substring(0,1).equals(character.substring(0,1));
+	}
+	
+	private boolean hasChildWord(String word){
+		return value.equals(word);
+	}
+	
+	
 
 	/**
 	 * De methode dat een string in de trie opslaat Door middel van een
