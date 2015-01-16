@@ -48,22 +48,23 @@ public class APL {
 
 		List<Data> search = boom.search("ozgur" + " < zoekwoord ozgur");
 		
-		/* Print posities */
-		for(Data data : search){
-			System.out.println(data.getPositions());
-		}
-		
-		System.out.println(boom.getWordFrequency("ozgur") + "< aantal keer ozgur");
-		System.out.println(boom.getWordFrequency("ralph") + "< aantal keer ralph");
-		System.out.println(boom.getWordFrequency("eclipse") + "< aantal keer eclipse");
-		
-		
-		/* Check of string bestaat methode */
-		System.out.println("Bestaat aap? :" + boom.bestaatWoord("aap"));
-		System.out.println("Bestaat piloot?:" + boom.bestaatWoord("piloot"));
-		
-		
-		System.out.println(boom.search("aap"));
+//		/* Print posities */
+//		for(Data data : search){
+//			System.out.println(data.getPositions());
+//		}
+//		
+//		System.out.println(boom.getWordFrequency("ozgur") + "< aantal keer ozgur");
+//		System.out.println(boom.getWordFrequency("ralph") + "< aantal keer ralph");
+//		System.out.println(boom.getWordFrequency("eclipse") + "< aantal keer eclipse");
+//		
+//		
+//		/* Check of string bestaat methode */
+//		System.out.println("Bestaat aap? :" + boom.bestaatWoord("aap"));
+//		System.out.println("Bestaat piloot?:" + boom.bestaatWoord("piloot"));
+//		
+//		
+//		System.out.println(boom.search("aap"));
+		System.out.println(boom.toString());
 
 	}
 }
