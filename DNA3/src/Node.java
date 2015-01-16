@@ -10,6 +10,8 @@ import java.util.List;
  */
 public class Node {
 
+	/* Added this */
+	
 	/* Eventuele nodeID */
 	private int nodeID;
 
