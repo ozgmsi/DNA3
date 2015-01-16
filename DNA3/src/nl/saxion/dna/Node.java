@@ -11,7 +11,8 @@ import java.util.List;
  */
 public class Node {
 
-	/* Added this */
+	/* Keep counter */
+	private static int lastAssignedNumber = 0;
 	
 	/* Eventuele nodeID */
 	private int nodeID;
@@ -46,6 +47,7 @@ public class Node {
 		this.data = new ArrayList<Data>();
 		this.data.add(new Data(positie));
 		this.children = new ArrayList<Node>();
+		this.nodeID = lastAssignedNumber++;
 	}
 
 	/**
@@ -481,4 +483,26 @@ public class Node {
 	private boolean isWord() {
 		return this.isWord;
 	}
+	
+	
+	@Override
+	public String toString() {
+		String result = "digraph heap {\n";
+		return result + toDot() + "\n}";
+	}
+
+	/**
+	 * Create a string in dot format
+	 * 
+	 * @return
+	 */
+	private String toDot() {
+		String res = "n" + nodeID + " [label=\"" + value + " data" + "\"]\n";
+		for (Node aChild : children) {
+			res += aChild.toDot();
+			res += "n" + nodeID + "-> n" + aChild.nodeID + ";\n";
+		}
+		return res;
+	}
+	
 }
