@@ -193,8 +193,11 @@ public class Node {
 			if (hasChild(s.substring(0, 1))) {
 
 				Node child = getChild(s.substring(0, 1));
-
 				output.add(child);
+                if(child.value.equals(s))
+                {
+			      return output	;
+                }
 
 				/* Ga dieper in de trie en doe hetzelfde ook voor de child nodes */
 				return child.searchPath(s.substring(1, s.length()), output);
@@ -253,12 +256,26 @@ public class Node {
 	public void insert2(String input, Data data){
 		
 		boolean added = false;
-		
+//		if(value !=null)
+//		{
+//		if(this.value.equals(input) && this.isWord)
+//		{
+//		    this.frequency++;	
+//		}
+//		else
+//		{
+//			this.value = input;
+//			this.frequency++;
+//			this.isWord =true;
+//		}
+//		}
+//		else
+//		{
 		/* Doorloop de kinderen van deze node */
 		for (Node childNode : children){
 			
 			/* Bestaat het woord al op een childnode */
-			if (childNode.value.equals(data)){
+			if (childNode.value.equals(input)){
 				/* Dat gaan we niet verder zoeken */
 				
 				/* En voegen we een data object toe */
@@ -305,10 +322,11 @@ public class Node {
 			node.value = input;
 			node.data.add(data);
 			node.parent = this;
+			node.isWord = true;
 			
 			this.children.add(node);
 		}
-		
+		//}
 	}
 	
 	private boolean isExpandable(){
@@ -465,7 +483,7 @@ public class Node {
 	private boolean hasChild(String s) {
 		if (children != null) {
 			for (Node node : children) {
-				if (node.value.equals(s)) {
+				if (node.value.equals(s) || node.value.substring(0, 1).equals(s)) {
 					return true;
 				}
 			}

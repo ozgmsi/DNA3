@@ -54,7 +54,7 @@ public class APL {
 //			System.out.println(data.getPositions());
 //		}
 //		
-//		System.out.println(boom.getWordFrequency("ozgur") + "< aantal keer ozgur");
+		System.out.println(boom.getWordFrequency("aap") + "< aantal keer aap");
 //		System.out.println(boom.getWordFrequency("ralph") + "< aantal keer ralph");
 //		System.out.println(boom.getWordFrequency("eclipse") + "< aantal keer eclipse");
 //		
